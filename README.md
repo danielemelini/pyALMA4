@@ -1,7 +1,7 @@
 # pyALMA4
 a Python toolkit for computing loading and tidal viscoelastic Love numbers
 
-This repository contains the `alma4` Python module and related benchmark and example Jupyter notebooks. The code is described in Melini and Spada (2026), submitted to Computer and Geosciences.
+This repository contains the `alma4` Python module and related benchmark and example Jupyter notebooks. The details are discussed in Melini and Spada (2026), submitted to Icarus.
 
 The syntax for computing viscoeastic Love Numbers with pyALMA4 is described below:
 
