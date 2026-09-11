@@ -910,9 +910,9 @@ def love_numbers(r,rho,mu,lam,eta,rheology,params,degrees,timesteps,loadtype,ana
 
     if analysis.lower()=='elastic':
         itype=1
-    elif analysis.lower()=='fullfluid':
-        itype=2
     elif analysis.lower()=='fluid':
+        itype=2
+    elif analysis.lower()=='fluidlimit':
         itype=3
     elif analysis.lower()=='frequency':
         itype=4

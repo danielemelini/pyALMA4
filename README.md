@@ -28,7 +28,8 @@ h,l,k = alma4.love_numbers(r,rho,mu,lam,eta,rheology,params,    \
 * `loadtype`: can be `'loading'` for loading LNs or `'tidal'` for tidal LNs. Loading LNs can be computed for degree $n\ge1$ while tidal LNs for degree $n\ge 2$. 
 * `analysis`: can be one of the following
     * `elastic`: compute the elastic limit of the LNs (all solid layers are assumed to be elastic).
-    * `fluid`: compute the fluid limit of the LNs (all viscoelastic layers are assumed to be fluid).
+    * `fluidlimit`: compute the fluid limit of the LNs (all viscoelastic layers are assumed to be fluid).
+    * `fluid`: compute the fluid LNs (all layers are assumed to be fluid). Valid only for tidal LNs.
     * `heaviside`: Compute the viscoelastic real LNs for a Heaviside forcing time history, at the timesteps specified by the `timesteps` parameter.
     * `frequency`: Viscoelastic complex LNs for a periodic forcing time history, at the periods specified by the `timesteps` parameter.
 * `verbose`: if `True`, print progress and timing info (default is `False`).
