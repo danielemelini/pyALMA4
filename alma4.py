@@ -22,7 +22,7 @@
 #         .
 #
 #
-# pyALMA, version 4.00
+# pyALMA, version 4.01
 # (the plAnetary Love nuMbers cAlculator)
 
 import math
@@ -439,7 +439,7 @@ def complex_rigidity(s,mu,eta,code,par):
 
     return mu_s
 
-def build_model(r, rho, mu, lam, eta, rheology, params):
+def build_model(r, rho, mu, lam, eta, rheology, params, timeunits='kyr'):
     """
     Validates the model, normalizes the parameters and computes 
     some additional physical quantities.
@@ -552,7 +552,18 @@ def build_model(r, rho, mu, lam, eta, rheology, params):
             params[i,2] = gamma(params[i,0]+1)
         if rheol[i]==7:
             params[i,4] = gamma(params[i,0]+1)
+        if rheol[i]==8:
+            if timeunits=='yr':
+                params[i,2] = params[i,2]/1000.
+                params[i,3] = params[i,3]/1000.
+            elif timeunits=='day':
+                params[i,2] = params[i,2]/(365.25*1000.)
+                params[i,3] = params[i,3]/(365.25*1000.)
+            elif timeunits=='hr':
+                params[i,2] = params[i,2]/(24*365.25*1000.)
+                params[i,3] = params[i,3]/(24*365.25*1000.)
 
+                  
     # ----- Define reference scales
  
     r0    = r[-1]
@@ -869,14 +880,15 @@ def love_numbers_spectrum(n,s,iload,model,xi=1e-4,n0=20,numint=None,det=False,mu
         return hh, ll, kk
         
 def love_numbers(r,rho,mu,lam,eta,rheology,params,degrees,timesteps,loadtype,analysis, \
-                 verbose=False, order=8, xi=1e-4, n0=20, numint=None,adaptive=True,r_sample=[],inversion='default'):
+                 verbose=False, order=8, xi=1e-4, n0=20, numint=None,adaptive=True, \
+                 r_sample=[],inversion='default',timeunits='kyr'):
     """
     Computes the Love Numbers.
     """
 
     # Validate and normalize the model parameters
 
-    model = build_model(r, rho, mu, lam, eta, rheology, params)
+    model = build_model(r, rho, mu, lam, eta, rheology, params, timeunits=timeunits)
     nla = len(model.r)
 
     # If the numerical integration / analytical propagation has not been selected,
@@ -966,9 +978,21 @@ def love_numbers(r,rho,mu,lam,eta,rheology,params,degrees,timesteps,loadtype,ana
     nt   = len(timesteps)
     ndeg = len(degrees)
 
-    # Convert the timesteps to a numpy array
+    # Convert the timesteps to a float numpy array
 
     t = np.array( timesteps, dtype=np.float64 )
+
+    # Convert times to kyr, if needed
+
+    if timeunits!='kyr':
+        if timeunits=='yr':
+            t = t / 1000.0
+        elif timeunits=='day':
+            t = t / (365.25 * 1000.0)
+        elif timeunits=='hr':
+            t = t / (24 * 365.25 * 1000.0)
+        else:
+            raise ValueError('Unknown time units "'+timeunits+'". Valid ones are kyr,yr,day,hr')
 
     # For elastic and fluid analyses we will ingnore the timesteps
 
@@ -1178,7 +1202,7 @@ def love_numbers(r,rho,mu,lam,eta,rheology,params,degrees,timesteps,loadtype,ana
         
         if verbose:
             t2 = time.perf_counter()
-            print( "Harmonic degree n = " + str(n) + " ( " + str(t2-t1) + " s )" )
+            print( " - Harmonic degree n = " + str(n) + " ( " + str(t2-t1) + " s )" )
             t1 = t2
 
     # We drop the imaginary part except for frequency-domain analysis            

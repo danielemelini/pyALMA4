@@ -8,8 +8,9 @@ The syntax for computing viscoeastic Love Numbers with pyALMA4 is described belo
 ``` 
 h,l,k = alma4.love_numbers(r,rho,mu,lam,eta,rheology,params,    \
                            degrees,timesteps,loadtype,analysis, \
-                        verbose=False, order=8, xi=1e-4, n0=20, \
-                        numint=None,adaptive=True,inversion='default')
+                           verbose=False, timeunits='kyr', order=8, \
+                           xi=1e-4, n0=20, numint=None, \
+                           adaptive=Trueinversion='default')
 ```
 
 * `r, rho, mu, lam, eta`: vectors containing the outer radius (in m), density (in kg/m^3), shear rigidity and 1st Lamé parameter (in Pa) and viscosity (in Pa) for each layer in the model. Layers shall be ordered from the innermost to the outermost one (i.e., `r[0]` is the core radius and `r[-1]` is the surface radius). Set `lam=None` for an incompressible model. For elastic and fluid layers the value of `eta` is ignored. All vectors must have the same length.
@@ -22,9 +23,9 @@ h,l,k = alma4.love_numbers(r,rho,mu,lam,eta,rheology,params,    \
     * `burgers`: Burgers transient rheology. Set `mu`$=\mu_M$, `eta`=$\eta_M$, `params[:,0]`=$\mu_K/\mu_M$, `params[:,1]`=$\eta_K/\eta_M$, with subscripts $M$ and $K$ referring to the Maxwell and Kelvin-Voigt elements of the mechanical analogue for the Burgers solid.
     * `andrade`: Andrade transient rheology. Set `params[:,0]` to the Andrade exponent $\alpha$ and `params[:,1]` to the ratio $\zeta = \tau_A/\tau_M$ between the Andrade and Maxwell relaxation times.
     * `sundberg`: Sundberg-Cooper transient rheology. Set `mu`$=\mu_M$, `eta`=$\eta_M$, `params[:,0]`=$\mu_K/\mu_M$, `params[:,1]`=$\eta_K/\eta_M$, `params[:,2]`=$\alpha$ (the fractional creep exponent) and `params[:,3]`=$\zeta$ (the ratio between the transient and steady-state relaxation times).
-    * `ebm`: Extended Burgers rheology. Set `params[:,0]`=$\alpha$ (the exponent of the Boltzmann distribution of relaxation times), `params[:,1]`=$\Delta$ (the ratio between unrelaxed and relaxed moduli), `params[:,2]`=$\tau_L$ and `params[:,3]`=$\tau_H$ (the low and high cutoffs in the distribution of relaxation times, expressed in kyr).
+    * `ebm`: Extended Burgers rheology. Set `params[:,0]`=$\alpha$ (the exponent of the Boltzmann distribution of relaxation times), `params[:,1]`=$\Delta$ (the ratio between unrelaxed and relaxed moduli), `params[:,2]`=$\tau_L$ and `params[:,3]`=$\tau_H$ (the low and high cutoffs in the distribution of relaxation times, expressed in the units specified with the `timeunits` parameter).
 * `degrees`: scalar or vector with harmonic degree(s) for which the LNs will be computed.
-* `timesteps`: scalar or vector with timestep(s) at which Heaviside LNs are evaluated (for `heaviside` analysis, see below) or period(s) at which LNs for a periodic forcing are evaluated (`frequency` analysys), see below. For other analyses it is ignored. Time steps of periods must be given in units of kyr.
+* `timesteps`: scalar or vector with timestep(s) at which Heaviside LNs are evaluated (for `heaviside` analysis, see below) or period(s) at which LNs for a periodic forcing are evaluated (`frequency` analysys), see below. For other analyses it is ignored. Time steps (or forcing periods) can be given in units of `kyr`, `yr`, `day` or `hr` by setting the `timeunits` parameter (see below). Default units are `kyr`.
 * `loadtype`: can be `'loading'` for loading LNs or `'tidal'` for tidal LNs. Loading LNs can be computed for degree $n\ge1$ while tidal LNs for degree $n\ge 2$. 
 * `analysis`: can be one of the following
     * `elastic`: compute the elastic limit of the LNs (all solid layers are assumed to be elastic).
@@ -33,6 +34,7 @@ h,l,k = alma4.love_numbers(r,rho,mu,lam,eta,rheology,params,    \
     * `heaviside`: Compute the viscoelastic real LNs for a Heaviside forcing time history, at the timesteps specified by the `timesteps` parameter.
     * `frequency`: Viscoelastic complex LNs for a periodic forcing time history, at the periods specified by the `timesteps` parameter.
 * `verbose`: if `True`, print progress and timing info (default is `False`).
+* `timeunits`: units for time steps (`timesteps`) and for rheological parameters, where applicable. Valid units are `kyr`, `yr`, `day`, `hr`. Default is `kyr`.  
 * `order`: order of the Talbot or Post-Widder inversions used to retrieve Heaviside LNs. Default is `order=8`.
 * `xi,n0`: Parameters defining at which radius the outward propagation of the solution will start for harmonic degree `n>n0`. See Melini and Spada (2026) for details.  
 * `numint`: If set to `True`, numerical Runge-Kutta integration is used also for incompressible models, while if set to `False` analytical propagation is used also for compressible models. Default (`numint=None`) is to use Runge-Kutta integration for compressible models and analytical propagation for incompressible models.
