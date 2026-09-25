@@ -1,0 +1,12 @@
+# File: M3L70V01-ebm_1mth_7yr.dat
+# Transient variant of test-suite model from Spada et al. 2011
+# tauL=1mth and tauH=7yr are expressed in years. Time steps must be given in the same units.
+# Created by DM on 13-Sep-2026
+#
+#         r_top (m)  rho(kg/m^3)     mu (Pa)    lam (Pa)  eta (Pa*s)   rheology   rheological parameters
+# -----------------------------------------------------------------------------------------------------------
+     4  6.37100e+06  3.03700e+03  5.0605e+10  6.9170e+10  1.0000e+99   elastic    
+     3  6.30100e+06  3.43800e+03  7.0363e+10  1.0038e+11  1.0000e+21   ebm        0.4  0.9  8.333333e-2  7.0    
+     2  5.95100e+06  3.87100e+03  1.0549e+11  1.5559e+11  1.0000e+21   ebm        0.4  0.9  8.333333e-2  7.0        
+     1  5.70100e+06  4.97800e+03  2.2834e+11  3.0172e+11  2.0000e+21   ebm        0.4  0.9  8.333333e-2  7.0         
+     0  3.48000e+06  1.07500e+04  0.0000e+00  9.2629e+11  0.0000e+00   fluid      
