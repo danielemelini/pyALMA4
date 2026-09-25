@@ -1202,7 +1202,8 @@ def love_numbers(r,rho,mu,lam,eta,rheology,params,degrees,timesteps,loadtype,ana
         
         if verbose:
             t2 = time.perf_counter()
-            print( " - Harmonic degree n = " + str(n) + " ( " + str(t2-t1) + " s )" )
+            #print( " - Harmonic degree n = " + str(n) + " ( " + str(t2-t1) + " s )" )
+            print( " - Harmonic degree n = {:d} ({:.4f}s)".format(n,t2-t1) )
             t1 = t2
 
     # We drop the imaginary part except for frequency-domain analysis            
