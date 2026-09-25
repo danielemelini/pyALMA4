@@ -128,7 +128,11 @@ On exit, pyALMA4 will create output files named `h.dat`, `l.dat` and`k.dat` (or 
 # Note about the `collocation` analysis
 
 The `collocation` analysis approximates the Laplace-transformed Love numbers for an impulsive forcing through the _pure collocation_ method. If $x$ denotes one of the $h$, $l$ or $k$ Love numbers, its Laplace transform $\tilde{x}$ is approximated as
-$$\tilde{x}_n(s)=x_{e,n} + \sum_{i=1}^{N_s} \frac{x_{n,i}}{s+s_i}$$
+
+$$
+\tilde{x}_n(s)=x_{e,n} + \sum_{i=1}^{N_s} \frac{x_{n,i}}{s+s_i}
+$$
+
 where the $N_s$ sampling points $s_i$ on the real positive axis are provided by the user. 
 
 The form above of the Laplace-transformed LNs is identical to the one obtained in the context of viscoelastic normal modes (see, e.g., [Spada et al., 2001](https://doi.org/10.1111/j.1365-246X.2011.04952.x)) and can be used to compute analytically the time-domain LNs for a wide range of load forcing time-histories.  In a `collocation` analysis, pyALMA4 evaluates the elastic limit $x_{e,n}$ and the $N_s$ weights $x_{n,i}$ for each Love number. For further details about the collocation method, see [Mitrovica and Peltier, 1992](https://doi.org/10.1111/j.1365-246X.1992.tb04623.x).
