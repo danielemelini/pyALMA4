@@ -6,7 +6,7 @@ This repository contains the pyALMA4 Python module and related benchmark and exa
 pyALMA4 is released by Daniele Melini (daniele.melini@ingv.it) and Giorgio Spada (giorgio.spada@unibo.it) under the GNU General Public License, a copy of which is available in this repository. If you find pyALMA4 useful for your research, please cite the following paper: 
 * D. Melini and G. Spada (2027), A fully compressible viscoelastic framework for modeling the planetary response to surface loading and tidal forces, Icarus, 461, 117326, https://doi.org/10.1016/j.icarus.2026.117326
 
-pyALMA4 can be used either as a [Pyhton library](#using-pyalma4-from-a-python-code) or as a [standalone command-line program](#using-pyalma4-from-the-command-line). Additional details are given below.
+pyALMA4 can be used either as a [Python library](#using-pyalma4-from-a-python-code) or as a [standalone command-line program](#using-pyalma4-from-the-command-line). Additional details are given below.
 
 # Invoking pyALMA4 from Python
 
