@@ -56,7 +56,7 @@ def main():
 
     # Set up the parser object and parse cmdline args
 
-    parser = argparse.ArgumentParser( prog='alma4.py', \
+    parser = argparse.ArgumentParser( prog='run-alma4.py', \
              description='plAnetary Love nuMbers cAlculator', \
              epilog='DM, Sep 2026' )
     
